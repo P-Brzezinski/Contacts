@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="629225d4-74b9-42ac-82fc-cf9fe1e09870" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/db/DAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/db/DAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/menu/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/menu/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +33,13 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/menu" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -55,6 +61,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -67,6 +85,8 @@
       <updated>1597951719065</updated>
       <workItem from="1597951722361" duration="917000" />
       <workItem from="1598292321150" duration="618000" />
+      <workItem from="1599514450285" duration="620000" />
+      <workItem from="1599632672273" duration="632000" />
     </task>
     <servers />
   </component>
@@ -74,22 +94,26 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1253" height="175" key="GridCell.Tab.0.bottom" timestamp="1597958146325">
+    <state x="1739" y="260" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1599650603990">
+      <screen x="1366" y="0" width="1280" height="1024" />
+    </state>
+    <state x="1739" y="260" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@1366.0.1280.1024" timestamp="1599650603990" />
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom" timestamp="1599514793295">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1597958146325" />
-    <state width="1253" height="175" key="GridCell.Tab.0.center" timestamp="1597958146325">
+    <state width="1253" height="175" key="GridCell.Tab.0.bottom/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1599514793295" />
+    <state width="1253" height="175" key="GridCell.Tab.0.center" timestamp="1599514793294">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.center/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1597958146325" />
-    <state width="1253" height="175" key="GridCell.Tab.0.left" timestamp="1597958146325">
+    <state width="1253" height="175" key="GridCell.Tab.0.center/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1599514793294" />
+    <state width="1253" height="175" key="GridCell.Tab.0.left" timestamp="1599514793294">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.left/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1597958146325" />
-    <state width="1253" height="175" key="GridCell.Tab.0.right" timestamp="1597958146325">
+    <state width="1253" height="175" key="GridCell.Tab.0.left/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1599514793294" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right" timestamp="1599514793295">
       <screen x="67" y="27" width="1299" height="741" />
     </state>
-    <state width="1253" height="175" key="GridCell.Tab.0.right/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1597958146325" />
+    <state width="1253" height="175" key="GridCell.Tab.0.right/67.27.1299.741/1366.0.1280.1024/2646.0.1024.768@67.27.1299.741" timestamp="1599514793295" />
     <state x="205" y="31" key="SettingsEditor" timestamp="1598637032476">
       <screen x="67" y="27" width="1299" height="741" />
     </state>

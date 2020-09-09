@@ -1,6 +1,5 @@
 package main.menu;
 
-import main.db.DAO;
 
 import java.util.Scanner;
 
@@ -13,8 +12,9 @@ public class MainMenu {
     private final static String LIST = "list";
     private final static String EXIT = "exit";
 
+    //TODO Scanner to singleton?
     Scanner scanner = new Scanner(System.in);
-    private DAO dao = new DAO();
+    private ActionsInMenu action = new ActionsInMenu();
 
     public void showMenu(){
         String choice = "";
@@ -23,22 +23,21 @@ public class MainMenu {
             choice = scanner.next();
             switch (choice){
                 case ADD:
-                    dao.addPerson(scanner);
+                    action.addPerson();
                     break;
                 case REMOVE:
-                    System.out.println("remove");
+                    action.remove();
                     break;
                 case EDIT:
-                    dao.edit(scanner);
+                    action.edit();
                     break;
                 case COUNT:
-                    System.out.println("count");
+                    action.count();
                     break;
                 case LIST:
-                    dao.showList();
+                    action.showList();
                     break;
                 case EXIT:
-                    System.out.println("exit");
                     break;
                 default:
                     System.out.println("No such option to choose. Try again.");
