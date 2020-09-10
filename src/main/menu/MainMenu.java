@@ -10,6 +10,7 @@ public class MainMenu {
     private final static String EDIT = "edit";
     private final static String COUNT = "count";
     private final static String LIST = "list";
+    private final static String INFO = "info";
     private final static String EXIT = "exit";
 
     //TODO Scanner to singleton?
@@ -19,11 +20,11 @@ public class MainMenu {
     public void showMenu(){
         String choice = "";
         do {
-            System.out.println("Enter action (add, remove, edit, count, list, exit):");
+            System.out.println("Enter action (add, remove, edit, count, info, exit):");
             choice = scanner.next();
             switch (choice){
                 case ADD:
-                    action.addPerson();
+                    action.addEntity();
                     break;
                 case REMOVE:
                     action.remove();
@@ -34,8 +35,8 @@ public class MainMenu {
                 case COUNT:
                     action.count();
                     break;
-                case LIST:
-                    action.showList();
+                case INFO:
+                    action.showInfo();
                     break;
                 case EXIT:
                     break;

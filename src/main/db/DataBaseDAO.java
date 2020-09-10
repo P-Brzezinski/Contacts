@@ -1,16 +1,16 @@
 package main.db;
 
-import main.model.Person;
+import main.model.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseDAO {
 
-    private List<Person> personList = new ArrayList<>();
+    private List<Entity> database = new ArrayList<>();
 
     public boolean isEmpty(){
-        if (personList.isEmpty()){
+        if (database.isEmpty()){
             return true;
         }else {
             return false;
@@ -18,23 +18,27 @@ public class DataBaseDAO {
     }
 
     public int size(){
-        return personList.size();
+        return database.size();
     }
 
-    public void addPerson(Person person){
-        personList.add(person);
+    public void addEntity(Entity entity){
+        database.add(entity);
     }
 
-    public Person getPerson(int index){
-        return personList.get(index);
+    public Entity getEntity(int index){
+        return database.get(index);
     }
 
-    public void changePerson(int index, Person person){
-        personList.set(index, person);
+    public void changeEntity(int index, Entity entity){
+        database.set(index, entity);
     }
 
-    public void removePerson(int index){
-        personList.remove(index);
+    public void removeEntity(int index){
+        database.remove(index);
+    }
+
+    public List<Entity> getAll(){
+        return database;
     }
 
 
