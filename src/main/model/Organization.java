@@ -68,6 +68,11 @@ public class Organization extends Entity {
     }
 
     @Override
+    public String getFullName() {
+        return this.organizationName;
+    }
+
+    @Override
     public String toString() {
         return "Organization name: " + organizationName + "\n" +
                 "Address: " + organizationAddress + "\n" +

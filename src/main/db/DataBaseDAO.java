@@ -5,6 +5,7 @@ import main.model.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DataBaseDAO {
 
     private List<Entity> database = new ArrayList<>();

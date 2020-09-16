@@ -72,7 +72,7 @@ public class Person extends Entity {
         public Builder() {
         }
 
-         public Builder setName(String name){
+        public Builder setName(String name){
             this.name = name;
             return this;
         }
@@ -110,6 +110,11 @@ public class Person extends Entity {
         public Person build(){
             return new Person(phoneNumber, timeCreated, lastEdit, name, surname, dateOfBirth, gender);
         }
+    }
+
+    @Override
+    public String getFullName() {
+        return this.name + " " + this.surname;
     }
 
     @Override

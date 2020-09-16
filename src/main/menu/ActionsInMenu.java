@@ -8,7 +8,11 @@ import main.model.gender.Gender;
 import main.validator.PhoneNumberValidator;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ActionsInMenu {
 
@@ -190,5 +194,53 @@ public class ActionsInMenu {
         }
         System.out.println();
     }
+
+    public void searchResults(){
+        List<Entity> results = search();
+        System.out.println("Found " + results.size() + " results:");
+        for (int i = 0; i < results.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, results.get(i).getFullName());
+        }
+        System.out.println("[search] Enter action ([number], back, again):");
+        String action = scanner.nextLine();
+    }
+
+
+    private List<Entity> search() {
+        System.out.println("Enter search query:");
+        String query = scanner.nextLine();
+        Pattern pattern = Pattern.compile(".*" + query + ".*", Pattern.CASE_INSENSITIVE );
+
+        List<Entity> results = new ArrayList<>();
+        List<Entity> allEntities = dao.getAll();
+
+        for (Entity entity : allEntities) {
+            String fields = fieldsToString(entity);
+            Matcher matcher = pattern.matcher(fields);
+            if (matcher.matches()){
+                results.add(entity);
+            }
+        }
+        return results;
+    }
+
+    private String fieldsToString(Entity entity) {
+        String value = null;
+        StringBuilder builder = new StringBuilder();
+        if (entity.getClass() == Person.class) {
+            Person person = (Person) entity;
+            value = builder.append(person.getName())
+                    .append(person.getSurname())
+                    .toString();
+        } else if (entity.getClass() == Organization.class) {
+            Organization organization = (Organization) entity;
+            value = builder
+                    .append(organization.getOrganizationName())
+                    .append(organization.getOrganizationAddress())
+                    .toString();
+        }
+        return value;
+    }
 }
+
 

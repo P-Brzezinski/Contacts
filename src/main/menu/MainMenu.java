@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class MainMenu {
 
     private final static String ADD = "add";
+    private final static String SEARCH = "search";
     private final static String REMOVE = "remove";
     private final static String EDIT = "edit";
     private final static String COUNT = "count";
@@ -17,32 +18,30 @@ public class MainMenu {
     Scanner scanner = new Scanner(System.in);
     private ActionsInMenu action = new ActionsInMenu();
 
-    public void showMenu(){
+    public void showMenu() {
         String choice = "";
         do {
-            System.out.println("Enter action (add, remove, edit, count, info, exit):");
+            System.out.println("[menu] Enter action (add, list, search, count, exit):");
             choice = scanner.next();
-            switch (choice){
+            switch (choice) {
                 case ADD:
                     action.addEntity();
                     break;
-                case REMOVE:
-                    action.remove();
+                case LIST:
+                    action.showList();
                     break;
-                case EDIT:
-                    action.edit();
+                case SEARCH:
+                    action.searchResults();
                     break;
                 case COUNT:
                     action.count();
                     break;
-                case INFO:
-                    action.showInfo();
-                    break;
                 case EXIT:
+                    choice = EXIT;
                     break;
                 default:
                     System.out.println("No such option to choose. Try again.");
             }
-        }while (!choice.equals(EXIT));
+        } while (!choice.equals(EXIT));
     }
 }
