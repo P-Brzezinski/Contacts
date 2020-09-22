@@ -82,11 +82,11 @@ public class ActionsInMenu {
     //===========================================================================================
     // EDIT
 
-    public void edit(int record) {
+    public void edit(Entity entity) {
+        int index = dao.getIndex(entity);
         if (dao.isEmpty()) {
             System.out.println("No records to edit!");
         } else {
-            Entity entity = dao.getEntity(record);
             if (entity.getClass() == Person.class) {
                 Person person = (Person) entity;
                 System.out.println("Select a field (name, surname, birth, gender, number):");
@@ -119,7 +119,7 @@ public class ActionsInMenu {
                         System.out.println("No such field to edit.");
                 }
                 person.setLastEdit(LocalDateTime.now());
-                dao.changeEntity(record, person);
+                dao.changeEntity(index, person);
             } else if (entity.getClass() == Organization.class) {
                 Organization organizationToEdit = (Organization) entity;
                 System.out.println("Select a field (name, address, number):");
@@ -143,7 +143,7 @@ public class ActionsInMenu {
                         System.out.println("No such field to edit.");
                 }
                 organizationToEdit.setLastEdit(LocalDateTime.now());
-                dao.changeEntity(record, organizationToEdit);
+                dao.changeEntity(index, organizationToEdit);
             }
             System.out.println("Saved");
         }
@@ -168,40 +168,9 @@ public class ActionsInMenu {
         System.out.println();
     }
 
-    public void changeRecord(int record) {
-        record--;
-        Scanner scanner = new Scanner(System.in);
-        String action;
-        do {
-            showRecord(record);
-            System.out.println("[record] Enter action (edit, delete, menu):");
-            action = scanner.nextLine();
-            switch (action) {
-                case "edit":
-                    edit(record);
-                    break;
-                case "delete":
-                    delete(record);
-                    action = "menu";
-                    break;
-                case "menu":
-                    break;
-                default:
-                    System.out.println("No such option");
-            }
-        } while (!action.equals("menu"));
-    }
-
-    public void showRecord(int record) {
-        Entity entity = dao.getEntity(record);
-        System.out.println(entity.toString());
-        System.out.println();
-    }
-
-    public void delete(int record) {
-        dao.removeEntity(record);
+    public void delete(Entity entity) {
+        dao.removeEntity(entity);
         System.out.println("The record removed!");
-        System.out.println();
     }
 
     public void count() {
@@ -214,6 +183,8 @@ public class ActionsInMenu {
         System.out.println();
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     public void search() {
         String action;
         do {
@@ -222,7 +193,8 @@ public class ActionsInMenu {
             System.out.print("[search] Enter action ([number], back, again): ");
             action = scanner.nextLine();
             if (isNumeric(action)) {
-                changeRecord(Integer.valueOf(action));
+                changeRecord(searchResults.get(Integer.parseInt(action) - 1));
+                action = "back";
             } else {
                 switch (action) {
                     case "again":
@@ -236,26 +208,6 @@ public class ActionsInMenu {
         } while (!action.equals("back"));
         System.out.println();
     }
-
-    public boolean isNumeric(String strNum) {
-        if (strNum == null) {
-            return false;
-        }
-        try {
-            int i = Integer.parseInt(strNum);
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
-        return true;
-    }
-
-    public void showSearchResults(List<Entity> searchResults) {
-        System.out.println("Found " + searchResults.size() + " results:");
-        for (int i = 0; i < searchResults.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, searchResults.get(i).getFullName());
-        }
-    }
-
 
     private List<Entity> searchRecords() {
         System.out.println("Enter search query:");
@@ -275,6 +227,47 @@ public class ActionsInMenu {
         return results;
     }
 
+    public void showSearchResults(List<Entity> searchResults) {
+        System.out.println("Found " + searchResults.size() + " results:");
+        for (int i = 0; i < searchResults.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, searchResults.get(i).getFullName());
+        }
+    }
+
+    public void changeRecord(Entity entity) {
+        String action;
+        do {
+            System.out.println(entity.toString());
+            System.out.println("[record] Enter action (edit, delete, menu):");
+            action = scanner.nextLine();
+            switch (action) {
+                case "edit":
+                    edit(entity);
+                    break;
+                case "delete":
+                    delete(entity);
+                    action = "menu";
+                    break;
+                case "menu":
+                    break;
+                default:
+                    System.out.println("No such option");
+            }
+        } while (!action.equals("menu"));
+    }
+
+    private boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            int i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     private String fieldsToString(Entity entity) {
         String value = null;
         StringBuilder builder = new StringBuilder();
@@ -287,13 +280,15 @@ public class ActionsInMenu {
             Organization organization = (Organization) entity;
             value = builder
                     .append(organization.getOrganizationName())
-                    .append(organization.getOrganizationAddress())
                     .toString();
         }
         return value;
     }
 
     public void addSomeData() {
+
+        dao.initDB();
+
         Person.Builder personBuilder = new Person.Builder()
                 .setName("Alice")
                 .setSurname("Wonderlanded")
