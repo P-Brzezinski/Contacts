@@ -1,10 +1,12 @@
 package main.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Organization extends Entity {
+public class Organization extends Entity implements Serializable {
 
+    private static final long serialVersionUID = -4184779018757712132L;
     private String organizationName;
     private String organizationAddress;
 

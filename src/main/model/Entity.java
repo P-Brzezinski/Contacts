@@ -1,9 +1,11 @@
 package main.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public abstract class Entity {
+public abstract class Entity implements Serializable {
 
+    private static final long serialVersionUID = -238420333375239616L;
     protected String phoneNumber;
     protected LocalDateTime timeCreated;
     protected LocalDateTime lastEdit;

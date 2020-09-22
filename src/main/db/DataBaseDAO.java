@@ -2,25 +2,12 @@ package main.db;
 
 import main.model.Entity;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class DataBaseDAO {
 
-    private List<Entity> database = new ArrayList<>();
-
-    public void initDB() {
-        String path = "src/main/db/dataBase.txt";
-        File file = new File(path);
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private DataBaseReader dataBaseReader = new DataBaseReader();
+    private List<Entity> database = dataBaseReader.readDB();
 
     public boolean isEmpty(){
         if (database.isEmpty()){
@@ -57,6 +44,4 @@ public class DataBaseDAO {
     public List<Entity> getAll(){
         return database;
     }
-
-
 }

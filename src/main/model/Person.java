@@ -2,11 +2,13 @@ package main.model;
 
 import main.model.gender.Gender;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Person extends Entity {
+public class Person extends Entity implements Serializable {
 
+    private static final long serialVersionUID = -8820228665294889973L;
     private String name;
     private String surname;
     private String dateOfBirth;

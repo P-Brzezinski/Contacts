@@ -1,6 +1,8 @@
 package main.menu;
 
 
+import main.db.DataBaseWriter;
+
 import java.util.Scanner;
 
 public class MainMenu {
@@ -14,8 +16,7 @@ public class MainMenu {
     private final static String INFO = "info";
     private final static String EXIT = "exit";
 
-    //TODO Scanner to singleton?
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private ActionsInMenu action = new ActionsInMenu();
 
     public void showMenu() {
@@ -39,6 +40,7 @@ public class MainMenu {
                     break;
                 case EXIT:
                     choice = EXIT;
+                    action.saveDB();
                     break;
                 default:
                     System.out.println("No such option to choose. Try again.");
