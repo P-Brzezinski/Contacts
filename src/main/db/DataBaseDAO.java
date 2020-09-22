@@ -6,8 +6,8 @@ import java.util.List;
 
 public class DataBaseDAO {
 
-    private DataBaseReader dataBaseReader = new DataBaseReader();
-    private List<Entity> database = dataBaseReader.readDB();
+    private DataBaseFile file = new DataBaseFile();
+    private List<Entity> database = file.readData();
 
     public boolean isEmpty(){
         if (database.isEmpty()){

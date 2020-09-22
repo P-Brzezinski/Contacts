@@ -1,8 +1,5 @@
 package main.menu;
 
-
-import main.db.DataBaseWriter;
-
 import java.util.Scanner;
 
 public class MainMenu {
@@ -20,8 +17,8 @@ public class MainMenu {
     private ActionsInMenu action = new ActionsInMenu();
 
     public void showMenu() {
+        action.initMenu();
         String choice = "";
-        action.addSomeData();
         do {
             System.out.println("[menu] Enter action (add, list, search, count, exit):");
             choice = scanner.next();
@@ -39,8 +36,8 @@ public class MainMenu {
                     action.count();
                     break;
                 case EXIT:
+                    action.closeMenu();
                     choice = EXIT;
-                    action.saveDB();
                     break;
                 default:
                     System.out.println("No such option to choose. Try again.");

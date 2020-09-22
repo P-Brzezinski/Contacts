@@ -1,8 +1,7 @@
 package main.menu;
 
-import main.db.DataBaseFileCreator;
 import main.db.DataBaseDAO;
-import main.db.DataBaseWriter;
+import main.db.DataBaseFile;
 import main.model.Entity;
 import main.model.Organization;
 import main.model.Person;
@@ -21,9 +20,11 @@ public class ActionsInMenu {
     Scanner scanner = new Scanner(System.in);
     private DataBaseDAO dao = new DataBaseDAO();
     private PhoneNumberValidator validator = new PhoneNumberValidator();
+    DataBaseFile file = new DataBaseFile();
 
-    //===========================================================================================
-    // ADD
+    public void initMenu(){
+        file.initFile();
+    }
 
     public void addEntity() {
         System.out.println("Enter the type (person, organization):");
@@ -80,9 +81,6 @@ public class ActionsInMenu {
         }
         System.out.println();
     }
-
-    //===========================================================================================
-    // EDIT
 
     public void edit(Entity entity) {
         int index = dao.getIndex(entity);
@@ -151,8 +149,6 @@ public class ActionsInMenu {
         }
     }
 
-    //===========================================================================================
-
     public void showList() {
         if (dao.isEmpty()) {
             System.out.println("The Phone Book has 0 records.");
@@ -184,8 +180,6 @@ public class ActionsInMenu {
         }
         System.out.println();
     }
-
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
     public void search() {
         String action;
@@ -287,37 +281,8 @@ public class ActionsInMenu {
         return value;
     }
 
-    public void addSomeData() {
-
-        DataBaseFileCreator creator = new DataBaseFileCreator();
-        creator.initDB();
-
-//        Person.Builder personBuilder = new Person.Builder()
-//                .setName("Alice")
-//                .setSurname("Wonderlanded")
-//                .setDateOfBirth("[no data]")
-//                .setGender(Gender.F)
-//                .setPhoneNumber("+123123 (123) 12-23-34-45")
-//                .setTimeCreated(LocalDateTime.now())
-//                .setLastEdit(LocalDateTime.now());
-//
-//        Person person = personBuilder.build();
-//        dao.addEntity(person);
-//
-//        Organization.Builder organizationBuilder = new Organization.Builder()
-//                .setOrganizationName("New Car Shop")
-//                .setOrganizationAddress("Wall St. 3")
-//                .setPhoneNumber("+0 (123) 456-789-9999")
-//                .setTimeCreated(LocalDateTime.now())
-//                .setLastEdit(LocalDateTime.now());
-//
-//        Organization organization = organizationBuilder.build();
-//        dao.addEntity(organization);
-    }
-
-    public void saveDB() {
-        DataBaseWriter dataBaseWriter = new DataBaseWriter();
-        dataBaseWriter.saveDB(dao.getAll());
+    public void closeMenu() {
+        file.saveData(dao.getAll());
     }
 }
 
