@@ -20,6 +20,9 @@ public class ActionsInMenu {
     private DataBaseDAO dao = new DataBaseDAO();
     private PhoneNumberValidator validator = new PhoneNumberValidator();
 
+    //===========================================================================================
+    // ADD
+
     public void addEntity() {
         System.out.println("Enter the type (person, organization):");
         String type = scanner.nextLine();
@@ -76,41 +79,16 @@ public class ActionsInMenu {
         System.out.println();
     }
 
-    public void showList() {
-        if (dao.isEmpty()) {
-            System.out.println("The Phone Book has 0 records.");
-        } else {
-            for (int i = 0; i < dao.size(); i++) {
-                if (dao.getEntity(i).getClass() == Person.class) {
-                    Person person = (Person) dao.getEntity(i);
-                    System.out.println((i + 1) + ". " + person.getName());
-                } else {
-                    Organization organization = (Organization) dao.getEntity(i);
-                    System.out.println((i + 1) + ". " + organization.getOrganizationName());
-                }
-            }
-        }
-    }
+    //===========================================================================================
+    // EDIT
 
-    public void showInfo() {
-        showList();
-        System.out.println("Enter index to show info:");
-        int record = scanner.nextInt() - 1;
-        Entity entity = dao.getEntity(record);
-        System.out.println(entity.toString());
-        System.out.println();
-    }
-
-    public void edit() {
+    public void edit(int record) {
         if (dao.isEmpty()) {
             System.out.println("No records to edit!");
         } else {
-            showList();
-            System.out.println("Select a record:");
-            int record = Integer.parseInt(scanner.nextLine()) - 1;
-            Entity entityToEdit = dao.getEntity(record);
-            if (entityToEdit.getClass() == Person.class) {
-                Person person = (Person) entityToEdit;
+            Entity entity = dao.getEntity(record);
+            if (entity.getClass() == Person.class) {
+                Person person = (Person) entity;
                 System.out.println("Select a field (name, surname, birth, gender, number):");
                 String fieldToEdit = scanner.nextLine();
                 switch (fieldToEdit) {
@@ -142,8 +120,8 @@ public class ActionsInMenu {
                 }
                 person.setLastEdit(LocalDateTime.now());
                 dao.changeEntity(record, person);
-            } else if (entityToEdit.getClass() == Organization.class) {
-                Organization organizationToEdit = (Organization) entityToEdit;
+            } else if (entity.getClass() == Organization.class) {
+                Organization organizationToEdit = (Organization) entity;
                 System.out.println("Select a field (name, address, number):");
                 String fieldToEdit = scanner.nextLine();
                 switch (fieldToEdit) {
@@ -167,21 +145,62 @@ public class ActionsInMenu {
                 organizationToEdit.setLastEdit(LocalDateTime.now());
                 dao.changeEntity(record, organizationToEdit);
             }
-            System.out.println("The record updated!");
+            System.out.println("Saved");
+        }
+    }
+
+    //===========================================================================================
+
+    public void showList() {
+        if (dao.isEmpty()) {
+            System.out.println("The Phone Book has 0 records.");
+        } else {
+            for (int i = 0; i < dao.size(); i++) {
+                if (dao.getEntity(i).getClass() == Person.class) {
+                    Person person = (Person) dao.getEntity(i);
+                    System.out.println((i + 1) + ". " + person.getName());
+                } else {
+                    Organization organization = (Organization) dao.getEntity(i);
+                    System.out.println((i + 1) + ". " + organization.getOrganizationName());
+                }
+            }
         }
         System.out.println();
     }
 
-    public void remove() {
-        if (dao.isEmpty()) {
-            System.out.println("No records to remove");
-        } else {
-            showList();
-            System.out.println("Select a record:");
-            int record = scanner.nextInt() - 1;
-            dao.removeEntity(record);
-            System.out.println("The record removed!");
-        }
+    public void changeRecord(int record) {
+        record--;
+        Scanner scanner = new Scanner(System.in);
+        String action;
+        do {
+            showRecord(record);
+            System.out.println("[record] Enter action (edit, delete, menu):");
+            action = scanner.nextLine();
+            switch (action) {
+                case "edit":
+                    edit(record);
+                    break;
+                case "delete":
+                    delete(record);
+                    action = "menu";
+                    break;
+                case "menu":
+                    break;
+                default:
+                    System.out.println("No such option");
+            }
+        } while (!action.equals("menu"));
+    }
+
+    public void showRecord(int record) {
+        Entity entity = dao.getEntity(record);
+        System.out.println(entity.toString());
+        System.out.println();
+    }
+
+    public void delete(int record) {
+        dao.removeEntity(record);
+        System.out.println("The record removed!");
         System.out.println();
     }
 
@@ -195,21 +214,53 @@ public class ActionsInMenu {
         System.out.println();
     }
 
-    public void searchResults(){
-        List<Entity> results = search();
-        System.out.println("Found " + results.size() + " results:");
-        for (int i = 0; i < results.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, results.get(i).getFullName());
+    public void search() {
+        String action;
+        do {
+            List<Entity> searchResults = searchRecords();
+            showSearchResults(searchResults);
+            System.out.print("[search] Enter action ([number], back, again): ");
+            action = scanner.nextLine();
+            if (isNumeric(action)) {
+                changeRecord(Integer.valueOf(action));
+            } else {
+                switch (action) {
+                    case "again":
+                        break;
+                    case "back":
+                        break;
+                    default:
+                        System.out.println("No such option.");
+                }
+            }
+        } while (!action.equals("back"));
+        System.out.println();
+    }
+
+    public boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
         }
-        System.out.println("[search] Enter action ([number], back, again):");
-        String action = scanner.nextLine();
+        try {
+            int i = Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
+    public void showSearchResults(List<Entity> searchResults) {
+        System.out.println("Found " + searchResults.size() + " results:");
+        for (int i = 0; i < searchResults.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, searchResults.get(i).getFullName());
+        }
     }
 
 
-    private List<Entity> search() {
+    private List<Entity> searchRecords() {
         System.out.println("Enter search query:");
         String query = scanner.nextLine();
-        Pattern pattern = Pattern.compile(".*" + query + ".*", Pattern.CASE_INSENSITIVE );
+        Pattern pattern = Pattern.compile(".*" + query + ".*", Pattern.CASE_INSENSITIVE);
 
         List<Entity> results = new ArrayList<>();
         List<Entity> allEntities = dao.getAll();
@@ -217,7 +268,7 @@ public class ActionsInMenu {
         for (Entity entity : allEntities) {
             String fields = fieldsToString(entity);
             Matcher matcher = pattern.matcher(fields);
-            if (matcher.matches()){
+            if (matcher.matches()) {
                 results.add(entity);
             }
         }
@@ -240,6 +291,30 @@ public class ActionsInMenu {
                     .toString();
         }
         return value;
+    }
+
+    public void addSomeData() {
+        Person.Builder personBuilder = new Person.Builder()
+                .setName("Alice")
+                .setSurname("Wonderlanded")
+                .setDateOfBirth("[no data]")
+                .setGender(Gender.F)
+                .setPhoneNumber("+123123 (123) 12-23-34-45")
+                .setTimeCreated(LocalDateTime.now())
+                .setLastEdit(LocalDateTime.now());
+
+        Person person = personBuilder.build();
+        dao.addEntity(person);
+
+        Organization.Builder organizationBuilder = new Organization.Builder()
+                .setOrganizationName("New Car Shop")
+                .setOrganizationAddress("Wall St. 3")
+                .setPhoneNumber("+0 (123) 456-789-9999")
+                .setTimeCreated(LocalDateTime.now())
+                .setLastEdit(LocalDateTime.now());
+
+        Organization organization = organizationBuilder.build();
+        dao.addEntity(organization);
     }
 }
 

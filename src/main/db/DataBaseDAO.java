@@ -1,7 +1,6 @@
 package main.db;
 
 import main.model.Entity;
-
 import java.util.ArrayList;
 import java.util.List;
 

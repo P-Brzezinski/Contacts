@@ -20,6 +20,7 @@ public class MainMenu {
 
     public void showMenu() {
         String choice = "";
+        action.addSomeData();
         do {
             System.out.println("[menu] Enter action (add, list, search, count, exit):");
             choice = scanner.next();
@@ -31,7 +32,7 @@ public class MainMenu {
                     action.showList();
                     break;
                 case SEARCH:
-                    action.searchResults();
+                    action.search();
                     break;
                 case COUNT:
                     action.count();
