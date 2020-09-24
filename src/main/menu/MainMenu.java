@@ -27,7 +27,7 @@ public class MainMenu {
                     action.addEntity();
                     break;
                 case LIST:
-                    action.showList();
+                    action.list();
                     break;
                 case SEARCH:
                     action.search();

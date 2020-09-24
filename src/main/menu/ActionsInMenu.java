@@ -22,7 +22,7 @@ public class ActionsInMenu {
     private PhoneNumberValidator validator = new PhoneNumberValidator();
     DataBaseFile file = new DataBaseFile();
 
-    public void initMenu(){
+    public void initMenu() {
         file.initFile();
     }
 
@@ -149,18 +149,21 @@ public class ActionsInMenu {
         }
     }
 
-    public void showList() {
+    public void list() {
+        String action;
         if (dao.isEmpty()) {
             System.out.println("The Phone Book has 0 records.");
         } else {
-            for (int i = 0; i < dao.size(); i++) {
-                if (dao.getEntity(i).getClass() == Person.class) {
-                    Person person = (Person) dao.getEntity(i);
-                    System.out.println((i + 1) + ". " + person.getName());
-                } else {
-                    Organization organization = (Organization) dao.getEntity(i);
-                    System.out.println((i + 1) + ". " + organization.getOrganizationName());
+            List<Entity> allEntities = dao.getAll();
+            showList(allEntities);
+            System.out.println();
+            System.out.println("[list] Enter action ([number], back):");
+            action = scanner.nextLine();
+            while (true) {
+                if (isNumeric(action)) {
+                    changeRecord(allEntities.get(Integer.parseInt(action) - 1));
                 }
+                break;
             }
         }
         System.out.println();
@@ -185,7 +188,7 @@ public class ActionsInMenu {
         String action;
         do {
             List<Entity> searchResults = searchRecords();
-            showSearchResults(searchResults);
+            showList(searchResults);
             System.out.print("[search] Enter action ([number], back, again): ");
             action = scanner.nextLine();
             if (isNumeric(action)) {
@@ -223,10 +226,10 @@ public class ActionsInMenu {
         return results;
     }
 
-    public void showSearchResults(List<Entity> searchResults) {
-        System.out.println("Found " + searchResults.size() + " results:");
-        for (int i = 0; i < searchResults.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, searchResults.get(i).getFullName());
+    public void showList(List<Entity> list) {
+        System.out.println("Found " + list.size() + " results:");
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, list.get(i).getFullName());
         }
     }
 
@@ -271,11 +274,13 @@ public class ActionsInMenu {
             Person person = (Person) entity;
             value = builder.append(person.getName())
                     .append(person.getSurname())
+                    .append(person.getPhoneNumber())
                     .toString();
         } else if (entity.getClass() == Organization.class) {
             Organization organization = (Organization) entity;
             value = builder
                     .append(organization.getOrganizationName())
+                    .append(organization.getPhoneNumber())
                     .toString();
         }
         return value;
