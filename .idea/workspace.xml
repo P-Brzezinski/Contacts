@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="629225d4-74b9-42ac-82fc-cf9fe1e09870" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/demo.gif" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.gif" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Contacts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/demo" />
     <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
@@ -100,7 +101,7 @@
       <workItem from="1600286046714" duration="1530000" />
       <workItem from="1600710905008" duration="947000" />
       <workItem from="1600769306574" duration="20679000" />
-      <workItem from="1600952782762" duration="2911000" />
+      <workItem from="1600952782762" duration="3161000" />
     </task>
     <servers />
   </component>
