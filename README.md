@@ -11,3 +11,5 @@ Demo:
 
 Application made for learning purposes. Learnt the essential basics of object-oriented programming: encapsulation,
 inheritance and polymorphism. Also, covered topics: serialization, TimeData classes, Design Patterns, working with files, I/O operations.
+
+Author: Paweł Brzeziński
